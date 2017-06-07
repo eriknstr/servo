@@ -369,6 +369,9 @@ pub trait TElement : Eq + PartialEq + Debug + Hash + Sized + Copy + Clone +
     /// Whether an attribute value equals `value`.
     fn attr_equals(&self, namespace: &Namespace, attr: &LocalName, value: &Atom) -> bool;
 
+    /// The ID for this element.
+    fn get_id(&self) -> Option<Atom>;
+
     /// Internal iterator for the classes of this element.
     fn each_class<F>(&self, callback: F) where F: FnMut(&Atom);
 

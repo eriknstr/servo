@@ -1288,7 +1288,10 @@ fn parse_attribute_selector<P, Impl>(parser: &P, input: &mut CssParser)
 
 fn parse_attribute_flags(input: &mut CssParser) -> Result<ParsedCaseSensitivity, ()> {
     match input.next() {
-        Err(()) => Ok(ParsedCaseSensitivity::CaseSensitive),
+        Err(()) => {
+            // Selectors spec says language-defined, but HTML says sensitive.
+            Ok(ParsedCaseSensitivity::CaseSensitive)
+        }
         Ok(Token::Ident(ref value)) if value.eq_ignore_ascii_case("i") => {
             Ok(ParsedCaseSensitivity::AsciiCaseInsensitive)
         }
